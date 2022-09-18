@@ -3,18 +3,71 @@
 # ------------------------------------------------------
 
 type User {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  id: Int!
+  email: String!
+  password: String!
+  country: String!
+  date_of_birth: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type UserPost {
+  id: Int!
+  profile_id: Int!
+  written_text: String!
+  media_url: String!
+  created_at: DateTime!
+}
+
+type PostComment {
+  id: Int!
+  post_id: Int!
+  profile_id: Int!
+  comment_text: String!
+  created_time: DateTime!
+}
+
+type PostLike {
+  id: Int!
+  post_id: Int!
+  profile_id: Int!
+  created_time: DateTime!
+}
+
+type Friendship {
+  id: Int!
+  profile_request: Int!
+  profile_accept: Int!
 }
 
 type Query {
   user(id: Int!): User!
+  userPost(id: Int!): UserPost!
+  postComment(id: Int!): PostComment!
+  postLike(id: Int!): PostLike!
+  friendship(id: Int!): Friendship!
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
+  createUserPost(createUserPostInput: CreateUserPostInput!): UserPost!
+  updateUserPost(updateUserPostInput: UpdateUserPostInput!): UserPost!
+  removeUserPost(id: Int!): UserPost!
+  createPostComment(createPostCommentInput: CreatePostCommentInput!): PostComment!
+  updatePostComment(updatePostCommentInput: UpdatePostCommentInput!): PostComment!
+  removePostComment(id: Int!): PostComment!
+  createPostLike(createPostLikeInput: CreatePostLikeInput!): PostLike!
+  updatePostLike(updatePostLikeInput: UpdatePostLikeInput!): PostLike!
+  removePostLike(id: Int!): PostLike!
+  createFriendship(createFriendshipInput: CreateFriendshipInput!): Friendship!
+  updateFriendship(updateFriendshipInput: UpdateFriendshipInput!): Friendship!
+  removeFriendship(id: Int!): Friendship!
 }
 
 input CreateUserInput {
@@ -23,6 +76,50 @@ input CreateUserInput {
 }
 
 input UpdateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateUserPostInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateUserPostInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreatePostCommentInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdatePostCommentInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreatePostLikeInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdatePostLikeInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateFriendshipInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateFriendshipInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!

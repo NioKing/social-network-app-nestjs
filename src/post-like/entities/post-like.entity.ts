@@ -2,26 +2,22 @@ import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 
-@Entity('user_post')
+@Entity('post_like')
 @ObjectType()
-export class UserPost {
+export class PostLike {
   @PrimaryGeneratedColumn()
   @Field(() => Int)
   id: number
 
   @Column()
   @Field(() => Int)
+  post_id: number
+
+  @Column()
+  @Field(() => Int)
   profile_id: number
 
   @Column()
-  @Field()
-  written_text: string
-
-  @Column()
-  @Field()
-  media_url: string
-
-  @Column()
   @Field(() => Date)
-  created_at: Date
+  created_time: Date
 }

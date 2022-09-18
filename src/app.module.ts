@@ -7,6 +7,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { UserPostModule } from './user-post/user-post.module';
+import { PostCommentModule } from './post-comment/post-comment.module';
+import { PostLikeModule } from './post-like/post-like.module';
+import { FriendshipModule } from './friendship/friendship.module';
 
 @Module({
   imports: [
@@ -18,17 +21,26 @@ import { UserPostModule } from './user-post/user-post.module';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: '13891666',
+      database: 'postgres',
       entities: ["dist/**/entities/*.entity{.ts,.js}"],
       synchronize: true,
       autoLoadEntities: true,
-      ssl: {
-        requestCert: true,
-        rejectUnauthorized: false
-      },
-      url: 'postgres://movie_db_user:4cbcwsNdoW45ZwT4LZc2zXFzRLEgfmJI@dpg-ccbjd69a6gdmn7sguk30-a.frankfurt-postgres.render.com/movie_db'
+      // ssl: {
+      //   requestCert: true,
+      //   rejectUnauthorized: false
+      // },
+      // url: 'postgres://movie_db_user:4cbcwsNdoW45ZwT4LZc2zXFzRLEgfmJI@dpg-ccbjd69a6gdmn7sguk30-a.frankfurt-postgres.render.com/movie_db'
+      
     }),
     UserModule,
-    UserPostModule
+    UserPostModule,
+    PostCommentModule,
+    PostLikeModule,
+    FriendshipModule
   ],
   controllers: [AppController],
   providers: [AppService],
