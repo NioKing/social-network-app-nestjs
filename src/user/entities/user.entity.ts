@@ -1,26 +1,32 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { UserPost } from '../../user-post/entities/user-post.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('user')
 @ObjectType()
 export class User {
   @PrimaryGeneratedColumn()
+  @OneToMany(
+    () => UserPost,
+    UserPost => UserPost.profile_id,
+    {onDelete: 'CASCADE'}
+  )
   @Field(() => Int)
   id: number
 
-  @Column()
+  @Column({unique: true, type: 'varchar'})
   @Field()
   email: string
 
-  @Column()
+  @Column({length: 25, type: 'varchar'})
   @Field()
   password: string
 
-  @Column()
+  @Column({type: 'varchar'})
   @Field()
   country: string
 
-  @Column(() => Date)
-  @Field()
+  @Column({type: 'date'})
+  @Field(() => Date)
   date_of_birth: Date
 }

@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from '../../user/entities/user.entity';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 
 @Entity('friendship')
@@ -9,11 +10,21 @@ export class Friendship {
   @Field(() => Int)
   id: number
 
-  @Column()
+  @JoinColumn({name: 'profile_request'})
+  @ManyToOne(
+    () => User,
+    User => User.id,
+    {onDelete: 'CASCADE'}
+  )
   @Field(() => Int)
   profile_request: number
 
-  @Column()
+  @JoinColumn({name: 'profile_accept'})
+  @ManyToOne(
+    () => User,
+    User => User.id,
+    {onDelete: 'CASCADE'}
+  )
   @Field(() => Int)
   profile_accept: number
 }

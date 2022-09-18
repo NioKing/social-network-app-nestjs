@@ -2,12 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
+type PostComment {
   id: Int!
-  email: String!
-  password: String!
-  country: String!
-  date_of_birth: DateTime!
+  post_id: Int!
+  profile_id: Int!
+  comment_text: String!
+  created_time: DateTime!
 }
 
 """
@@ -23,12 +23,12 @@ type UserPost {
   created_at: DateTime!
 }
 
-type PostComment {
+type User {
   id: Int!
-  post_id: Int!
-  profile_id: Int!
-  comment_text: String!
-  created_time: DateTime!
+  email: String!
+  password: String!
+  country: String!
+  date_of_birth: DateTime!
 }
 
 type PostLike {
