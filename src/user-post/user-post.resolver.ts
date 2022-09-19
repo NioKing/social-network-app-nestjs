@@ -9,27 +9,28 @@ export class UserPostResolver {
   constructor(private readonly userPostService: UserPostService) {}
 
   @Mutation(() => UserPost)
-  createUserPost(@Args('createUserPostInput') createUserPostInput: CreateUserPostInput) {
+  async createUserPost(@Args('createUserPostInput') createUserPostInput: CreateUserPostInput) {
     return this.userPostService.create(createUserPostInput);
   }
 
-  @Query(() => [UserPost], { name: 'userPost' })
-  findAll() {
+  @Query(() => [UserPost], { name: 'posts' })
+  async findAll() {
     return this.userPostService.findAll();
   }
 
   @Query(() => UserPost, { name: 'userPost' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  async findOne(@Args('id', { type: () => Int }) id: number) {
     return this.userPostService.findOne(id);
   }
 
   @Mutation(() => UserPost)
-  updateUserPost(@Args('updateUserPostInput') updateUserPostInput: UpdateUserPostInput) {
+  async updateUserPost(@Args('updateUserPostInput') updateUserPostInput: UpdateUserPostInput) {
     return this.userPostService.update(updateUserPostInput.id, updateUserPostInput);
   }
 
   @Mutation(() => UserPost)
-  removeUserPost(@Args('id', { type: () => Int }) id: number) {
-    return this.userPostService.remove(id);
+  async removeUserPost(@Args('id', { type: () => Int }) id: number) {
+    await this.userPostService.remove(id);
+    return 'Post has been successfully deleted'
   }
 }

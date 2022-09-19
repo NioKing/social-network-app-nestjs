@@ -19,14 +19,16 @@ export class User {
   email: string
 
   @Column({length: 25, type: 'varchar'})
-  @Field()
   password: string
 
   @Column({type: 'varchar'})
   @Field()
   country: string
 
-  @Column({type: 'date'})
+  @Column({type: 'date', nullable: true})
   @Field(() => Date)
   date_of_birth: Date
+
+  @Field(() => [UserPost], {nullable: true})
+  posts: UserPost[]
 }

@@ -26,9 +26,9 @@ type UserPost {
 type User {
   id: Int!
   email: String!
-  password: String!
   country: String!
   date_of_birth: DateTime!
+  posts: [UserPost!]
 }
 
 type PostLike {
@@ -45,7 +45,9 @@ type Friendship {
 }
 
 type Query {
+  users: [User!]!
   user(id: Int!): User!
+  posts: [UserPost!]!
   userPost(id: Int!): UserPost!
   postComment(id: Int!): PostComment!
   postLike(id: Int!): PostLike!
@@ -71,24 +73,30 @@ type Mutation {
 }
 
 input CreateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  email: String!
+  password: String!
+  country: String!
+  date_of_birth: DateTime
 }
 
 input UpdateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  email: String
+  password: String
+  country: String
+  date_of_birth: DateTime
   id: Int!
 }
 
 input CreateUserPostInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  profile_id: Int!
+  written_text: String!
+  media_url: String
 }
 
 input UpdateUserPostInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  profile_id: Int
+  written_text: String
+  media_url: String
   id: Int!
 }
 
