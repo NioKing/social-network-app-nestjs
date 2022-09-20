@@ -13,7 +13,7 @@ export class PostCommentResolver {
     return this.postCommentService.create(createPostCommentInput);
   }
 
-  @Query(() => [PostComment], { name: 'postComment' })
+  @Query(() => [PostComment], { name: 'comments' })
   findAll() {
     return this.postCommentService.findAll();
   }

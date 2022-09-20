@@ -5,4 +5,7 @@ import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 export class UpdatePostCommentInput extends PartialType(CreatePostCommentInput) {
   @Field(() => Int)
   id: number;
+
+  @Field()
+  comment_text: string;
 }

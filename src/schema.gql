@@ -19,8 +19,9 @@ type UserPost {
   id: Int!
   profile_id: Int!
   written_text: String!
-  media_url: String!
+  media_url: String
   created_at: DateTime!
+  comments: [PostComment!]!
 }
 
 type User {
@@ -49,6 +50,7 @@ type Query {
   user(id: Int!): User!
   posts: [UserPost!]!
   userPost(id: Int!): UserPost!
+  comments: [PostComment!]!
   postComment(id: Int!): PostComment!
   postLike(id: Int!): PostLike!
   friendship(id: Int!): Friendship!
@@ -101,13 +103,15 @@ input UpdateUserPostInput {
 }
 
 input CreatePostCommentInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  post_id: Int!
+  profile_id: Int!
+  comment_text: String!
 }
 
 input UpdatePostCommentInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  post_id: Int
+  profile_id: Int
+  comment_text: String!
   id: Int!
 }
 

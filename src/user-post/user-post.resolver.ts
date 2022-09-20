@@ -1,8 +1,9 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nestjs/graphql';
 import { UserPostService } from './user-post.service';
 import { UserPost } from './entities/user-post.entity';
 import { CreateUserPostInput } from './dto/create-user-post.input';
 import { UpdateUserPostInput } from './dto/update-user-post.input';
+import { PostComment } from '../post-comment/entities/post-comment.entity';
 
 @Resolver(() => UserPost)
 export class UserPostResolver {
@@ -31,6 +32,10 @@ export class UserPostResolver {
   @Mutation(() => UserPost)
   async removeUserPost(@Args('id', { type: () => Int }) id: number) {
     await this.userPostService.remove(id);
-    return 'Post has been successfully deleted'
+  }
+
+  @ResolveField(() => [PostComment])
+  comments(@Parent() userPost: UserPost) {
+    return this.userPostService.getComments(userPost.id)
   }
 }

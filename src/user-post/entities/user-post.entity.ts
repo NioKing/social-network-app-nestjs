@@ -19,7 +19,7 @@ export class UserPost {
     User => User.id,
     {onDelete: 'CASCADE'}
   )
-  @JoinColumn({name: 'profile_id'})
+  @Column({name: 'profile_id'})
   @Field(() => Int)
   profile_id: number
 
@@ -28,7 +28,7 @@ export class UserPost {
   written_text: string
 
   @Column({nullable: true, type: 'varchar'})
-  @Field()
+  @Field({nullable: true})
   media_url: string
 
   @CreateDateColumn({type: 'date'})

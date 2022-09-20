@@ -11,7 +11,7 @@ export class PostComment {
   @Field(() => Int)
   id: number
 
-  @JoinColumn({name: 'post_id'})
+  @Column({name: 'post_id'})
   @ManyToOne(() => UserPost,
     UserPost => UserPost.id,
     {onDelete: 'CASCADE'}
@@ -19,7 +19,7 @@ export class PostComment {
   @Field(() => Int)
   post_id: number
 
-  @JoinColumn({name: 'profile_id'})
+  @Column({name: 'profile_id'})
   @ManyToOne(
     () => User,
     User => User.id,
