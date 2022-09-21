@@ -30,6 +30,7 @@ type User {
   country: String!
   date_of_birth: DateTime!
   posts: [UserPost!]
+  user_comments: [PostComment!]
 }
 
 type PostLike {

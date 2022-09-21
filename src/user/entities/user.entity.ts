@@ -1,6 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { UserPost } from '../../user-post/entities/user-post.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { PostComment } from '../../post-comment/entities/post-comment.entity';
 
 @Entity('user')
 @ObjectType()
@@ -31,4 +32,7 @@ export class User {
 
   @Field(() => [UserPost], {nullable: true})
   posts: UserPost[]
+
+  @Field(() => [PostComment], {nullable: true})
+  user_comments: PostComment[]
 }

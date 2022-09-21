@@ -19,7 +19,8 @@ export class PostComment {
   @Field(() => Int)
   post_id: number
 
-  @Column({name: 'profile_id'})
+  @Column({type: 'int'})
+  @JoinColumn({ name: 'profile_id'})
   @ManyToOne(
     () => User,
     User => User.id,

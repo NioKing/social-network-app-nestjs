@@ -19,7 +19,8 @@ export class UserPost {
     User => User.id,
     {onDelete: 'CASCADE'}
   )
-  @Column({name: 'profile_id'})
+  @Column({type: 'int'})
+  @JoinColumn({name: 'profile_id'})
   @Field(() => Int)
   profile_id: number
 
