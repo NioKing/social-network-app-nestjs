@@ -25,8 +25,10 @@ export class PostCommentService {
     return await this.postCommentRepo.findOneOrFail({where: {id: id}})
   }
 
-  async update(id: number, updatePostCommentInput: UpdatePostCommentInput) {
-    return
+  async update(id: number, updatePostCommentInput: UpdatePostCommentInput): Promise<PostComment> {
+    let comment = await this.postCommentRepo.findOneOrFail({where: {id: id}})
+    comment.comment_text = updatePostCommentInput.comment_text
+    return await this.postCommentRepo.save(comment)
   }
 
   async remove(id: number) {

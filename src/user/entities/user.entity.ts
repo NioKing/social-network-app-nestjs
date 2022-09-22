@@ -6,7 +6,7 @@ import { PostComment } from '../../post-comment/entities/post-comment.entity';
 @Entity('user')
 @ObjectType()
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({type: 'int'})
   @OneToMany(
     () => UserPost,
     UserPost => UserPost.profile_id,

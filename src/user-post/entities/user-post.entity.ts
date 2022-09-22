@@ -33,6 +33,6 @@ export class UserPost {
   media_url: string
 
   @CreateDateColumn({type: 'date'})
-  @Field(() => Date)
+  @Field(() => String)
   created_at: Date
 }

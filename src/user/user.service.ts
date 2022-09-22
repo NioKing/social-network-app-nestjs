@@ -31,9 +31,11 @@ export class UserService {
     return this.userRepo.findOneOrFail({where: {id: id}})
   }
 
-  async update(id: number, updateUserInput: UpdateUserInput) {
-    // let user = await this.userRepo.find({where: {id: id}})
-    return `User ${id} has been updated!` 
+  async update(id: number, updateUserInput: UpdateUserInput): Promise<User> {
+    let user: User = await this.userRepo.findOneOrFail({where: {id: id}})
+    user.email = updateUserInput.email
+    user.password = updateUserInput.password
+    return this.userRepo.save(user)
   }
 
   async remove(id: number) {

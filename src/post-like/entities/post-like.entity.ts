@@ -29,6 +29,6 @@ export class PostLike {
   profile_id: number
 
   @CreateDateColumn({type: 'date'})
-  @Field(() => Date)
+  @Field(() => String)
   created_time: Date
 }

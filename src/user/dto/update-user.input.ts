@@ -11,7 +11,4 @@ export class UpdateUserInput extends PartialType(CreateUserInput) {
 
   @Field({nullable: true})
   password: string;
-
-  @Field({nullable: true})
-  country: string;
 }

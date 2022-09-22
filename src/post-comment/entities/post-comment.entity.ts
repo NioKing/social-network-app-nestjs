@@ -16,6 +16,7 @@ export class PostComment {
     UserPost => UserPost.id,
     {onDelete: 'CASCADE'}
   )
+  @JoinColumn({name: 'post_id'})
   @Field(() => Int)
   post_id: number
 
@@ -34,6 +35,6 @@ export class PostComment {
   comment_text: string
 
   @CreateDateColumn({type: 'date'})
-  @Field(() => Date)
+  @Field(() => String)
   created_time: Date
 }

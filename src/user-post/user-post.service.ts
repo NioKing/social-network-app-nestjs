@@ -16,19 +16,22 @@ export class UserPostService {
 
   async create(createUserPostInput: CreateUserPostInput): Promise<UserPost> {
     let newUser = this.userPostRepo.create(createUserPostInput)
-    return await this.userPostRepo.save(newUser)
+    return this.userPostRepo.save(newUser)
   }
 
   async findAll(): Promise<UserPost[]> {
-    return await this.userPostRepo.find()
+    return this.userPostRepo.find()
   }
 
-  async findOne(id: number) {
-    return await this.userPostRepo.findOneOrFail({where: {id: id}})
+  async findOne(id: number): Promise<UserPost> {
+    return this.userPostRepo.findOneOrFail({where: {id: id}})
   }
 
-  async update(id: number, updateUserPostInput: UpdateUserPostInput) {
-    return `This action updates a #${id} userPost`;
+  async update(id: number, updateUserPostInput: UpdateUserPostInput): Promise<UserPost> {
+    let post: UserPost = await this.userPostRepo.findOneOrFail({where: {id: id}})
+    post.written_text = updateUserPostInput.written_text
+    post.media_url = updateUserPostInput.media_url
+    return this.userPostRepo.save(post)
   }
 
   async remove(id: number): Promise<string> {
