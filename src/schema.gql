@@ -53,6 +53,7 @@ type Query {
   userPost(id: Int!): UserPost!
   comments: [PostComment!]!
   postComment(id: Int!): PostComment!
+  likes: [PostLike!]!
   postLike(id: Int!): PostLike!
   friendship(id: Int!): Friendship!
 }
@@ -117,13 +118,13 @@ input UpdatePostCommentInput {
 }
 
 input CreatePostLikeInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  post_id: Int!
+  profile_id: Int!
 }
 
 input UpdatePostLikeInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  post_id: Int
+  profile_id: Int
   id: Int!
 }
 

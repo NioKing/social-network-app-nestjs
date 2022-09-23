@@ -12,6 +12,7 @@ export class PostLike {
   id: number
 
   @JoinColumn({name: 'post_id'})
+  @Column({type: 'number'})
   @ManyToOne(() => UserPost,
     UserPost => UserPost.id,
     {onDelete: 'CASCADE'}
@@ -20,6 +21,7 @@ export class PostLike {
   post_id: number
 
   @JoinColumn({name: 'profile_id'})
+  @Column({type: 'number'})
   @ManyToOne(
     () => User,
     User => User.id,

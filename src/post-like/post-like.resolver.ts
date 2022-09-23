@@ -13,7 +13,7 @@ export class PostLikeResolver {
     return this.postLikeService.create(createPostLikeInput);
   }
 
-  @Query(() => [PostLike], { name: 'postLike' })
+  @Query(() => [PostLike], { name: 'likes' })
   findAll() {
     return this.postLikeService.findAll();
   }
