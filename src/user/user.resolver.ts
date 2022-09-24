@@ -5,6 +5,8 @@ import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { UserPost } from '../user-post/entities/user-post.entity';
 import { PostComment } from '../post-comment/entities/post-comment.entity';
+import { PostLike } from '../post-like/entities/post-like.entity';
+import { Friendship } from '../friendship/entities/friendship.entity';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -44,4 +46,15 @@ export class UserResolver {
   user_comments(@Parent() user: User) {
     return this.userService.getComments(user.id)
   }
+
+  @ResolveField(() => [PostLike])
+  user_likes(@Parent() user: User) {
+    return this.userService.getUserLikes(user.id)
+  }
+
+  @ResolveField(() => [Friendship])
+  friends(@Parent() user: User) {
+    return this.userService.getFriends(user.id)
+  }
+
 }

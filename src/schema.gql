@@ -17,27 +17,25 @@ type UserPost {
   media_url: String
   created_at: String!
   comments: [PostComment!]!
+  likes: [PostLike!]!
 }
-
-type User {
-  id: Int!
-  email: String!
-  country: String!
-  date_of_birth: DateTime!
-  posts: [UserPost!]
-  user_comments: [PostComment!]
-}
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 type PostLike {
   id: Int!
   post_id: Int!
   profile_id: Int!
   created_time: String!
+}
+
+type User {
+  id: Int!
+  email: String!
+  country: String!
+  date_of_birth: String!
+  posts: [UserPost!]
+  user_comments: [PostComment!]
+  user_likes: [PostLike!]
+  friends: [Friendship!]!
 }
 
 type Friendship {
@@ -55,6 +53,7 @@ type Query {
   postComment(id: Int!): PostComment!
   likes: [PostLike!]!
   postLike(id: Int!): PostLike!
+  friends: [Friendship!]!
   friendship(id: Int!): Friendship!
 }
 
@@ -82,6 +81,11 @@ input CreateUserInput {
   country: String!
   date_of_birth: DateTime
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 input UpdateUserInput {
   email: String
@@ -129,12 +133,12 @@ input UpdatePostLikeInput {
 }
 
 input CreateFriendshipInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  profile_request: Int!
+  profile_accept: Int!
 }
 
 input UpdateFriendshipInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  profile_request: Int
+  profile_accept: Int
   id: Int!
 }

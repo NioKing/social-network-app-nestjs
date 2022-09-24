@@ -6,6 +6,7 @@ import { PostLike } from './entities/post-like.entity';
 
 @Module({
   providers: [PostLikeResolver, PostLikeService],
-  imports: [TypeOrmModule.forFeature([PostLike])]
+  imports: [TypeOrmModule.forFeature([PostLike])],
+  exports: [PostLikeService]
 })
 export class PostLikeModule {}

@@ -1,26 +1,38 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateFriendshipInput } from './dto/create-friendship.input';
 import { UpdateFriendshipInput } from './dto/update-friendship.input';
+import { Friendship } from './entities/friendship.entity';
 
 @Injectable()
 export class FriendshipService {
-  create(createFriendshipInput: CreateFriendshipInput) {
-    return 'This action adds a new friendship';
+
+  constructor(
+    @InjectRepository(Friendship) private friendShipRepo: Repository<Friendship>
+  ){}
+  
+  async create(createFriendshipInput: CreateFriendshipInput) {
+    if(createFriendshipInput.profile_request === createFriendshipInput.profile_accept) {
+      throw new InternalServerErrorException('Failed to create friendship')
+    }
+    let newFriendShip = this.friendShipRepo.create(createFriendshipInput)
+    return this.friendShipRepo.save(newFriendShip)
   }
 
-  findAll() {
-    return `This action returns all friendship`;
+  async findAll(): Promise<Friendship[]> {
+    return this.friendShipRepo.find()
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
     return `This action returns a #${id} friendship`;
   }
 
-  update(id: number, updateFriendshipInput: UpdateFriendshipInput) {
+  async update(id: number, updateFriendshipInput: UpdateFriendshipInput) {
     return `This action updates a #${id} friendship`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} friendship`;
+  async remove(id: number) {
+    return this.friendShipRepo.delete(id)
   }
 }

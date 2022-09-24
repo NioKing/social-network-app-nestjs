@@ -4,6 +4,7 @@ import { UserPost } from './entities/user-post.entity';
 import { CreateUserPostInput } from './dto/create-user-post.input';
 import { UpdateUserPostInput } from './dto/update-user-post.input';
 import { PostComment } from '../post-comment/entities/post-comment.entity';
+import { PostLike } from '../post-like/entities/post-like.entity';
 
 @Resolver(() => UserPost)
 export class UserPostResolver {
@@ -38,4 +39,10 @@ export class UserPostResolver {
   comments(@Parent() userPost: UserPost) {
     return this.userPostService.getComments(userPost.id)
   }
+
+  @ResolveField(() => [PostLike])
+  likes(@Parent() userPost: UserPost) {
+    return this.userPostService.getLikes(userPost.id)
+  }
+
 }

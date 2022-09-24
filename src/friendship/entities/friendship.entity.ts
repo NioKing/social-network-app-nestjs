@@ -11,6 +11,7 @@ export class Friendship {
   id: number
 
   @JoinColumn({name: 'profile_request'})
+  @Column({type: 'number'})
   @ManyToOne(
     () => User,
     User => User.id,
@@ -20,6 +21,7 @@ export class Friendship {
   profile_request: number
 
   @JoinColumn({name: 'profile_accept'})
+  @Column({type: 'number'})
   @ManyToOne(
     () => User,
     User => User.id,
@@ -27,4 +29,5 @@ export class Friendship {
   )
   @Field(() => Int)
   profile_accept: number
+
 }

@@ -6,12 +6,15 @@ import { CreateUserPostInput } from './dto/create-user-post.input';
 import { UpdateUserPostInput } from './dto/update-user-post.input';
 import { UserPost } from './entities/user-post.entity';
 import { PostComment } from '../post-comment/entities/post-comment.entity';
+import { PostLike } from '../post-like/entities/post-like.entity';
+import { PostLikeService } from '../post-like/post-like.service';
 
 @Injectable()
 export class UserPostService {
   constructor(
     @InjectRepository(UserPost) private userPostRepo: Repository<UserPost>,
-    private readonly postCommentService: PostCommentService
+    private readonly postCommentService: PostCommentService,
+    private readonly postLikeService: PostLikeService
   ){}
 
   async create(createUserPostInput: CreateUserPostInput): Promise<UserPost> {
@@ -41,7 +44,11 @@ export class UserPostService {
 
   async getComments(postId: number): Promise<PostComment[]> {
     let comments = await this.postCommentService.findAll()
-    let filteredComments = comments.filter(comment => comment.post_id === postId)
-    return filteredComments
+    return comments.filter(comment => comment.post_id === postId)
+  }
+
+  async getLikes(postId: number): Promise<PostLike[]> {
+    let likes = await this.postLikeService.findAll()
+    return likes.filter(like => like.post_id === postId)
   }
 }

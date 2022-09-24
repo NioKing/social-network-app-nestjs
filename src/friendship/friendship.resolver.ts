@@ -13,7 +13,7 @@ export class FriendshipResolver {
     return this.friendshipService.create(createFriendshipInput);
   }
 
-  @Query(() => [Friendship], { name: 'friendship' })
+  @Query(() => [Friendship], { name: 'friends' })
   findAll() {
     return this.friendshipService.findAll();
   }

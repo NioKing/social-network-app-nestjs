@@ -8,6 +8,10 @@ import { User } from './entities/user.entity';
 import { UserPostService } from '../user-post/user-post.service';
 import { PostComment } from '../post-comment/entities/post-comment.entity';
 import { PostCommentService } from '../post-comment/post-comment.service';
+import { PostLike } from '../post-like/entities/post-like.entity';
+import { PostLikeService } from '../post-like/post-like.service';
+import { FriendshipService } from '../friendship/friendship.service';
+import { Friendship } from '../friendship/entities/friendship.entity';
 
 @Injectable()
 export class UserService {
@@ -15,7 +19,9 @@ export class UserService {
   constructor(
     @InjectRepository(User) private userRepo: Repository<User>,
     private userPostService: UserPostService,
-    private userCommentService: PostCommentService
+    private userCommentService: PostCommentService,
+    private postLikesService: PostLikeService,
+    private friedshipService: FriendshipService
   ){}
 
   async create(createUserInput: CreateUserInput): Promise<User> {
@@ -44,13 +50,21 @@ export class UserService {
 
   async getPosts(profile_id: number): Promise<UserPost[]> {
     let posts = await this.userPostService.findAll()
-    let filteredPosts = posts.filter(post => post.profile_id === profile_id)
-    return filteredPosts
+    return posts.filter(post => post.profile_id === profile_id)
   }
 
   async getComments(profile_id: number): Promise<PostComment[]> {
     let comments = await this.userCommentService.findAll()
-    let filteredPosts = comments.filter(comment => comment.profile_id === profile_id)
-    return filteredPosts
+    return comments.filter(comment => comment.profile_id === profile_id)
+  }
+
+  async getUserLikes(profile_id: number): Promise<PostLike[]> {
+    let likes = await this.postLikesService.findAll()
+    return likes.filter(like => like.profile_id === profile_id)
+  }
+
+  async getFriends(profile_id: number): Promise<Friendship[]> {
+    let friends = await this.friedshipService.findAll()
+    return friends.filter(friend => friend.profile_accept === profile_id)
   }
 }
