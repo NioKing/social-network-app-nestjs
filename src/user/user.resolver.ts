@@ -32,9 +32,10 @@ export class UserResolver {
     return this.userService.update(updateUserInput.id, updateUserInput);
   }
 
-  @Mutation(() => User)
-  removeUser(@Args('id', { type: () => Int }) id: number) {
-    return this.userService.remove(id);
+  @Mutation(() => Boolean)
+  async removeUser(@Args('id', { type: () => Int }) id: number) {
+    await this.userService.remove(id);
+    return true
   }
 
   @ResolveField(() => [UserPost])

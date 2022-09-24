@@ -12,7 +12,7 @@ export class FriendshipService {
     @InjectRepository(Friendship) private friendShipRepo: Repository<Friendship>
   ){}
   
-  async create(createFriendshipInput: CreateFriendshipInput) {
+  async create(createFriendshipInput: CreateFriendshipInput): Promise<Friendship> {
     if(createFriendshipInput.profile_request === createFriendshipInput.profile_accept) {
       throw new InternalServerErrorException('Failed to create friendship')
     }
@@ -33,6 +33,6 @@ export class FriendshipService {
   }
 
   async remove(id: number) {
-    return this.friendShipRepo.delete(id)
+   return this.friendShipRepo.delete(id)
   }
 }

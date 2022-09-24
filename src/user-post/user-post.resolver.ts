@@ -11,28 +11,29 @@ export class UserPostResolver {
   constructor(private readonly userPostService: UserPostService) {}
 
   @Mutation(() => UserPost)
-  async createUserPost(@Args('createUserPostInput') createUserPostInput: CreateUserPostInput) {
+  createUserPost(@Args('createUserPostInput') createUserPostInput: CreateUserPostInput) {
     return this.userPostService.create(createUserPostInput);
   }
 
   @Query(() => [UserPost], { name: 'posts' })
-  async findAll() {
+  findAll() {
     return this.userPostService.findAll();
   }
 
   @Query(() => UserPost, { name: 'userPost' })
-  async findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => Int }) id: number) {
     return this.userPostService.findOne(id);
   }
 
   @Mutation(() => UserPost)
-  async updateUserPost(@Args('updateUserPostInput') updateUserPostInput: UpdateUserPostInput) {
+  updateUserPost(@Args('updateUserPostInput') updateUserPostInput: UpdateUserPostInput) {
     return this.userPostService.update(updateUserPostInput.id, updateUserPostInput);
   }
 
-  @Mutation(() => UserPost)
+  @Mutation(() => Boolean)
   async removeUserPost(@Args('id', { type: () => Int }) id: number) {
     await this.userPostService.remove(id);
+    return true
   }
 
   @ResolveField(() => [PostComment])

@@ -60,19 +60,19 @@ type Query {
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
-  removeUser(id: Int!): User!
+  removeUser(id: Int!): Boolean!
   createUserPost(createUserPostInput: CreateUserPostInput!): UserPost!
   updateUserPost(updateUserPostInput: UpdateUserPostInput!): UserPost!
-  removeUserPost(id: Int!): UserPost!
+  removeUserPost(id: Int!): Boolean!
   createPostComment(createPostCommentInput: CreatePostCommentInput!): PostComment!
   updatePostComment(updatePostCommentInput: UpdatePostCommentInput!): PostComment!
-  removePostComment(id: Int!): PostComment!
+  removePostComment(id: Int!): Boolean!
   createPostLike(createPostLikeInput: CreatePostLikeInput!): PostLike!
   updatePostLike(updatePostLikeInput: UpdatePostLikeInput!): PostLike!
-  removePostLike(id: Int!): PostLike!
+  removePostLike(id: Int!): Boolean!
   createFriendship(createFriendshipInput: CreateFriendshipInput!): Friendship!
   updateFriendship(updateFriendshipInput: UpdateFriendshipInput!): Friendship!
-  removeFriendship(id: Int!): Friendship!
+  removeFriendship(id: Int!): Boolean!
 }
 
 input CreateUserInput {

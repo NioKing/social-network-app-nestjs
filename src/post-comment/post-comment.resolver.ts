@@ -28,8 +28,9 @@ export class PostCommentResolver {
     return this.postCommentService.update(updatePostCommentInput.id, updatePostCommentInput);
   }
 
-  @Mutation(() => PostComment)
-  removePostComment(@Args('id', { type: () => Int }) id: number) {
-    return this.postCommentService.remove(id);
+  @Mutation(() => Boolean)
+  async removePostComment(@Args('id', { type: () => Int }) id: number) {
+    await this.postCommentService.remove(id);
+    return true
   }
 }

@@ -28,8 +28,9 @@ export class PostLikeResolver {
     return this.postLikeService.update(updatePostLikeInput.id, updatePostLikeInput);
   }
 
-  @Mutation(() => PostLike)
-  removePostLike(@Args('id', { type: () => Int }) id: number) {
-    return this.postLikeService.remove(id);
+  @Mutation(() => Boolean)
+  async removePostLike(@Args('id', { type: () => Int }) id: number) {
+    await this.postLikeService.remove(id);
+    return true
   }
 }

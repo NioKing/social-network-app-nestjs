@@ -28,8 +28,9 @@ export class FriendshipResolver {
     return this.friendshipService.update(updateFriendshipInput.id, updateFriendshipInput);
   }
 
-  @Mutation(() => Friendship)
-  removeFriendship(@Args('id', { type: () => Int }) id: number) {
-    return this.friendshipService.remove(id);
+  @Mutation(() => Boolean)
+  async removeFriendship(@Args('id', { type: () => Int }) id: number) {
+    await this.friendshipService.remove(id);
+    return true
   }
 }
