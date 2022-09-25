@@ -29,7 +29,7 @@ export class PostCommentResolver {
   }
 
   @Mutation(() => Boolean)
-  async removePostComment(@Args('id', { type: () => Int }) id: number) {
+  async removePostComment(@Args('id', { type: () => Int }) id: number): Promise<Boolean> {
     await this.postCommentService.remove(id);
     return true
   }

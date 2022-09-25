@@ -11,6 +11,6 @@ export class CreateUserInput {
   @Field()
   country: string
 
-  @Field(() => Date, {nullable: true})
+  @Field(() => String, {nullable: true})
   date_of_birth: Date
 }

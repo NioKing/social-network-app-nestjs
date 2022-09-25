@@ -29,7 +29,7 @@ export class PostLikeResolver {
   }
 
   @Mutation(() => Boolean)
-  async removePostLike(@Args('id', { type: () => Int }) id: number) {
+  async removePostLike(@Args('id', { type: () => Int }) id: number): Promise<Boolean> {
     await this.postLikeService.remove(id);
     return true
   }

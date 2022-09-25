@@ -31,7 +31,7 @@ export class UserPostResolver {
   }
 
   @Mutation(() => Boolean)
-  async removeUserPost(@Args('id', { type: () => Int }) id: number) {
+  async removeUserPost(@Args('id', { type: () => Int }) id: number): Promise<Boolean> {
     await this.userPostService.remove(id);
     return true
   }

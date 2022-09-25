@@ -71,7 +71,6 @@ type Mutation {
   updatePostLike(updatePostLikeInput: UpdatePostLikeInput!): PostLike!
   removePostLike(id: Int!): Boolean!
   createFriendship(createFriendshipInput: CreateFriendshipInput!): Friendship!
-  updateFriendship(updateFriendshipInput: UpdateFriendshipInput!): Friendship!
   removeFriendship(id: Int!): Boolean!
 }
 
@@ -79,19 +78,14 @@ input CreateUserInput {
   email: String!
   password: String!
   country: String!
-  date_of_birth: DateTime
+  date_of_birth: String
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 input UpdateUserInput {
   email: String
   password: String
   country: String
-  date_of_birth: DateTime
+  date_of_birth: String
   id: Int!
 }
 
@@ -135,10 +129,4 @@ input UpdatePostLikeInput {
 input CreateFriendshipInput {
   profile_request: Int!
   profile_accept: Int!
-}
-
-input UpdateFriendshipInput {
-  profile_request: Int
-  profile_accept: Int
-  id: Int!
 }

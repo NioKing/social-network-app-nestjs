@@ -33,7 +33,7 @@ export class UserResolver {
   }
 
   @Mutation(() => Boolean)
-  async removeUser(@Args('id', { type: () => Int }) id: number) {
+  async removeUser(@Args('id', { type: () => Int }) id: number): Promise<Boolean> {
     await this.userService.remove(id);
     return true
   }

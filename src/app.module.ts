@@ -4,7 +4,6 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { UserPostModule } from './user-post/user-post.module';
 import { PostCommentModule } from './post-comment/post-comment.module';
@@ -43,6 +42,6 @@ import { FriendshipModule } from './friendship/friendship.module';
     FriendshipModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule {}

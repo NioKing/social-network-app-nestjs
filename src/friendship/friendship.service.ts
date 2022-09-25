@@ -2,7 +2,6 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateFriendshipInput } from './dto/create-friendship.input';
-import { UpdateFriendshipInput } from './dto/update-friendship.input';
 import { Friendship } from './entities/friendship.entity';
 
 @Injectable()
@@ -24,12 +23,8 @@ export class FriendshipService {
     return this.friendShipRepo.find()
   }
 
-  async findOne(id: number) {
-    return `This action returns a #${id} friendship`;
-  }
-
-  async update(id: number, updateFriendshipInput: UpdateFriendshipInput) {
-    return `This action updates a #${id} friendship`;
+  async findOne(id: number): Promise<Friendship> {
+    return this.friendShipRepo.findOneOrFail({where: {id: id}})
   }
 
   async remove(id: number) {
