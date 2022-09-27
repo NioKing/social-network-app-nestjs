@@ -9,6 +9,7 @@ import { UserPostModule } from './user-post/user-post.module';
 import { PostCommentModule } from './post-comment/post-comment.module';
 import { PostLikeModule } from './post-like/post-like.module';
 import { FriendshipModule } from './friendship/friendship.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -39,7 +40,8 @@ import { FriendshipModule } from './friendship/friendship.module';
     UserPostModule,
     PostCommentModule,
     PostLikeModule,
-    FriendshipModule
+    FriendshipModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [],

@@ -7,6 +7,8 @@ import { UserPost } from '../user-post/entities/user-post.entity';
 import { PostComment } from '../post-comment/entities/post-comment.entity';
 import { PostLike } from '../post-like/entities/post-like.entity';
 import { Friendship } from '../friendship/entities/friendship.entity';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -18,6 +20,7 @@ export class UserResolver {
   }
 
   @Query(() => [User], { name: 'users' })
+  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.userService.findAll();
   }
@@ -25,6 +28,11 @@ export class UserResolver {
   @Query(() => User, { name: 'user' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.userService.findOne(id);
+  }
+
+  @Query(() => User, {name: 'userByEmail'})
+  findUserByEmail(@Args('email') email: string) {
+    return this.userService.findUserByEmail(email)
   }
 
   @Mutation(() => User)

@@ -10,6 +10,7 @@ import { FriendshipModule } from '../friendship/friendship.module';
 
 @Module({
   providers: [UserResolver, UserService],
-  imports: [TypeOrmModule.forFeature([User]), UserPostModule, PostCommentModule, PostLikeModule, FriendshipModule]
+  imports: [TypeOrmModule.forFeature([User]), UserPostModule, PostCommentModule, PostLikeModule, FriendshipModule],
+  exports: [UserService]
 })
 export class UserModule {}

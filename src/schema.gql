@@ -44,9 +44,15 @@ type Friendship {
   profile_accept: Int!
 }
 
+type LoginResponse {
+  access_token: String!
+  user: User!
+}
+
 type Query {
   users: [User!]!
   user(id: Int!): User!
+  userByEmail(email: String!): User!
   posts: [UserPost!]!
   userPost(id: Int!): UserPost!
   comments: [PostComment!]!
@@ -72,6 +78,7 @@ type Mutation {
   removePostLike(id: Int!): Boolean!
   createFriendship(createFriendshipInput: CreateFriendshipInput!): Friendship!
   removeFriendship(id: Int!): Boolean!
+  login(loginUserInput: LoginUserInput!): LoginResponse!
 }
 
 input CreateUserInput {
@@ -129,4 +136,10 @@ input UpdatePostLikeInput {
 input CreateFriendshipInput {
   profile_request: Int!
   profile_accept: Int!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+  country: String
 }

@@ -25,6 +25,10 @@ export class UserService {
   ){}
 
   async create(createUserInput: CreateUserInput): Promise<User> {
+    let user = await this.userRepo.findOne({where: {email: createUserInput.email}})
+    if(user) {
+      throw new Error('Email already exists!')
+    }
     let newUser = this.userRepo.create(createUserInput)
     return await this.userRepo.save(newUser)
   }
@@ -35,6 +39,10 @@ export class UserService {
 
   async findOne(id: number): Promise<User> {
     return this.userRepo.findOneOrFail({where: {id: id}})
+  }
+
+  async findUserByEmail(email: string): Promise<User> {
+    return this.userRepo.findOne({where: {email: email}})
   }
 
   async update(id: number, updateUserInput: UpdateUserInput): Promise<User> {
