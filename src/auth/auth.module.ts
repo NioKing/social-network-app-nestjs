@@ -10,7 +10,7 @@ require ('dotenv').config()
 @Module({
   providers: [AuthService, AuthResolver, LocalStrategy, JwtStrategy],
   imports: [UserModule, JwtModule.register({
-    signOptions: {expiresIn: '60'},
+    signOptions: {expiresIn: '360s'},
     secret: process.env.JWT_SECRET
   })]
 })

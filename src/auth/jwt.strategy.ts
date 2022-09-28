@@ -5,7 +5,6 @@ import { Strategy } from "passport-jwt";
 require('dotenv').config()
 
 
-
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
     constructor() {
