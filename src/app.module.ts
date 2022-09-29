@@ -4,9 +4,12 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { UserPostModule } from './user-post/user-post.module';
+import { PostCommentModule } from './post-comment/post-comment.module';
+import { PostLikeModule } from './post-like/post-like.module';
+import { FriendshipModule } from './friendship/friendship.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -25,12 +28,17 @@ import { UserPostModule } from './user-post/user-post.module';
         requestCert: true,
         rejectUnauthorized: false
       },
-      url: 'postgres://movie_db_user:4cbcwsNdoW45ZwT4LZc2zXFzRLEgfmJI@dpg-ccbjd69a6gdmn7sguk30-a.frankfurt-postgres.render.com/movie_db'
+      url: process.env.DATABASE_URL
+      
     }),
     UserModule,
-    UserPostModule
+    UserPostModule,
+    PostCommentModule,
+    PostLikeModule,
+    FriendshipModule,
+    AuthModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule {}

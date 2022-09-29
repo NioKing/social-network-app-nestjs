@@ -1,8 +1,15 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent, Context } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { UserPost } from '../user-post/entities/user-post.entity';
+import { PostComment } from '../post-comment/entities/post-comment.entity';
+import { PostLike } from '../post-like/entities/post-like.entity';
+import { Friendship } from '../friendship/entities/friendship.entity';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { currentUser } from '../auth/current-user.decorator';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -13,23 +20,54 @@ export class UserResolver {
     return this.userService.create(createUserInput);
   }
 
-  @Query(() => [User], { name: 'user' })
+  @Query(() => [User], { name: 'users' })
+  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.userService.findAll();
   }
 
   @Query(() => User, { name: 'user' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.userService.findOne(id);
+  @UseGuards(JwtAuthGuard)
+  findOne(@currentUser() user) {
+    return this.userService.findOne(user.userId);
+  }
+
+  @Query(() => User, {name: 'userByEmail'})
+  @UseGuards(JwtAuthGuard)
+  findUserByEmail(@Args('email') email: string) {
+    return this.userService.findUserByEmail(email)
   }
 
   @Mutation(() => User)
-  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    return this.userService.update(updateUserInput.id, updateUserInput);
+  @UseGuards(JwtAuthGuard)
+  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput, @currentUser() user: any) {
+    return this.userService.update(user.userId, updateUserInput);
   }
 
-  @Mutation(() => User)
-  removeUser(@Args('id', { type: () => Int }) id: number) {
-    return this.userService.remove(id);
+  @Mutation(() => Boolean)
+  async removeUser(@Args('id', { type: () => Int }) id: number): Promise<Boolean> {
+    await this.userService.remove(id);
+    return true
   }
+
+  @ResolveField(() => [UserPost])
+  posts(@Parent() user: User) {
+    return this.userService.getPosts(user.id)
+  }
+
+  @ResolveField(() => [PostComment])
+  user_comments(@Parent() user: User) {
+    return this.userService.getComments(user.id)
+  }
+
+  @ResolveField(() => [PostLike])
+  user_likes(@Parent() user: User) {
+    return this.userService.getUserLikes(user.id)
+  }
+
+  @ResolveField(() => [Friendship])
+  friends(@Parent() user: User) {
+    return this.userService.getFriends(user.id)
+  }
+
 }

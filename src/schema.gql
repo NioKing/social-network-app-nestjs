@@ -2,28 +2,145 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type PostComment {
+  id: Int!
+  post_id: Int!
+  profile_id: Int!
+  comment_text: String!
+  created_time: String!
+}
+
+type UserPost {
+  id: Int!
+  profile_id: Int!
+  written_text: String!
+  media_url: String
+  created_at: String!
+  comments: [PostComment!]!
+  likes: [PostLike!]!
+}
+
+type PostLike {
+  id: Int!
+  post_id: Int!
+  profile_id: Int!
+  created_time: String!
+}
+
 type User {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  id: Int!
+  email: String!
+  country: String!
+  date_of_birth: String!
+  posts: [UserPost!]
+  user_comments: [PostComment!]
+  user_likes: [PostLike!]
+  friends: [Friendship!]!
+}
+
+type Friendship {
+  id: Int!
+  profile_request: Int!
+  profile_accept: Int!
+}
+
+type LoginResponse {
+  access_token: String!
+  user: User!
 }
 
 type Query {
-  user(id: Int!): User!
+  users: [User!]!
+  user: User!
+  userByEmail(email: String!): User!
+  posts: [UserPost!]!
+  userPost(id: Int!): UserPost!
+  comments: [PostComment!]!
+  postComment(id: Int!): PostComment!
+  likes: [PostLike!]!
+  postLike(id: Int!): PostLike!
+  friends: [Friendship!]!
+  friendship(id: Int!): Friendship!
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
-  removeUser(id: Int!): User!
+  removeUser(id: Int!): Boolean!
+  createUserPost(createUserPostInput: CreateUserPostInput!): UserPost!
+  updateUserPost(updateUserPostInput: UpdateUserPostInput!): UserPost!
+  removeUserPost(id: Int!): Boolean!
+  createPostComment(createPostCommentInput: CreatePostCommentInput!): PostComment!
+  updatePostComment(updatePostCommentInput: UpdatePostCommentInput!): PostComment!
+  removePostComment(id: Int!): Boolean!
+  createPostLike(createPostLikeInput: CreatePostLikeInput!): PostLike!
+  updatePostLike(updatePostLikeInput: UpdatePostLikeInput!): PostLike!
+  removePostLike(id: Int!): Boolean!
+  acceptFriendship(createFriendshipInput: CreateFriendshipInput!): Friendship!
+  requestFriendsip(createFriendshipInput: CreateFriendshipInput!): Friendship!
+  removeFriendship(id: Int!): Boolean!
+  login(loginUserInput: LoginUserInput!): LoginResponse!
 }
 
 input CreateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  email: String!
+  password: String!
+  country: String!
+  date_of_birth: String
 }
 
 input UpdateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  email: String
+  password: String
+  country: String
+  date_of_birth: String
+  id: Int
+}
+
+input CreateUserPostInput {
+  profile_id: Int
+  written_text: String!
+  media_url: String
+}
+
+input UpdateUserPostInput {
+  profile_id: Int
+  written_text: String
+  media_url: String
   id: Int!
+}
+
+input CreatePostCommentInput {
+  post_id: Int!
+  profile_id: Int
+  comment_text: String!
+}
+
+input UpdatePostCommentInput {
+  post_id: Int
+  profile_id: Int
+  comment_text: String!
+  id: Int!
+}
+
+input CreatePostLikeInput {
+  post_id: Int!
+  profile_id: Int
+}
+
+input UpdatePostLikeInput {
+  post_id: Int
+  profile_id: Int
+  id: Int!
+}
+
+input CreateFriendshipInput {
+  profile_request: Int
+  profile_accept: Int
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+  country: String
 }
