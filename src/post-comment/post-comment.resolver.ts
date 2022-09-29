@@ -3,14 +3,22 @@ import { PostCommentService } from './post-comment.service';
 import { PostComment } from './entities/post-comment.entity';
 import { CreatePostCommentInput } from './dto/create-post-comment.input';
 import { UpdatePostCommentInput } from './dto/update-post-comment.input';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { currentUser } from '../auth/current-user.decorator';
 
 @Resolver(() => PostComment)
 export class PostCommentResolver {
   constructor(private readonly postCommentService: PostCommentService) {}
 
   @Mutation(() => PostComment)
-  createPostComment(@Args('createPostCommentInput') createPostCommentInput: CreatePostCommentInput) {
-    return this.postCommentService.create(createPostCommentInput);
+  @UseGuards(JwtAuthGuard)
+  createPostComment(@Args('createPostCommentInput') createPostCommentInput: CreatePostCommentInput, @currentUser() user: any) {
+    return this.postCommentService.create({
+      profile_id: user.userId,
+      comment_text: createPostCommentInput.comment_text,
+      post_id: createPostCommentInput.post_id
+    });
   }
 
   @Query(() => [PostComment], { name: 'comments' })

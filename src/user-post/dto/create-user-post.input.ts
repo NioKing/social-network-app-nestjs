@@ -3,8 +3,9 @@ import { IsInt, IsOptional, IsString, IsUrl, MaxLength } from 'class-validator';
 
 @InputType()
 export class CreateUserPostInput {
-  @Field(() => Int)
+  @Field(() => Int, {nullable: true})
   @IsInt()
+  @IsOptional()
   profile_id: number
 
   @Field()

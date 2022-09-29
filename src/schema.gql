@@ -51,7 +51,7 @@ type LoginResponse {
 
 type Query {
   users: [User!]!
-  user(id: Int!): User!
+  user: User!
   userByEmail(email: String!): User!
   posts: [UserPost!]!
   userPost(id: Int!): UserPost!
@@ -76,7 +76,8 @@ type Mutation {
   createPostLike(createPostLikeInput: CreatePostLikeInput!): PostLike!
   updatePostLike(updatePostLikeInput: UpdatePostLikeInput!): PostLike!
   removePostLike(id: Int!): Boolean!
-  createFriendship(createFriendshipInput: CreateFriendshipInput!): Friendship!
+  acceptFriendship(createFriendshipInput: CreateFriendshipInput!): Friendship!
+  requestFriendsip(createFriendshipInput: CreateFriendshipInput!): Friendship!
   removeFriendship(id: Int!): Boolean!
   login(loginUserInput: LoginUserInput!): LoginResponse!
 }
@@ -93,11 +94,11 @@ input UpdateUserInput {
   password: String
   country: String
   date_of_birth: String
-  id: Int!
+  id: Int
 }
 
 input CreateUserPostInput {
-  profile_id: Int!
+  profile_id: Int
   written_text: String!
   media_url: String
 }
@@ -111,7 +112,7 @@ input UpdateUserPostInput {
 
 input CreatePostCommentInput {
   post_id: Int!
-  profile_id: Int!
+  profile_id: Int
   comment_text: String!
 }
 
@@ -124,7 +125,7 @@ input UpdatePostCommentInput {
 
 input CreatePostLikeInput {
   post_id: Int!
-  profile_id: Int!
+  profile_id: Int
 }
 
 input UpdatePostLikeInput {
@@ -134,8 +135,8 @@ input UpdatePostLikeInput {
 }
 
 input CreateFriendshipInput {
-  profile_request: Int!
-  profile_accept: Int!
+  profile_request: Int
+  profile_accept: Int
 }
 
 input LoginUserInput {

@@ -4,8 +4,9 @@ import { IsEmail, IsInt, IsOptional, IsString, MaxLength, MinLength } from 'clas
 
 @InputType()
 export class UpdateUserInput extends PartialType(CreateUserInput) {
-  @Field(() => Int)
+  @Field(() => Int, {nullable: true})
   @IsInt()
+  @IsOptional()
   id: number
 
   @Field({nullable: true})

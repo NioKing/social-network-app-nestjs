@@ -1,5 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
-import { IsInt } from 'class-validator';
+import { IsInt, IsOptional } from 'class-validator';
 
 @InputType()
 export class CreatePostLikeInput {
@@ -7,7 +7,8 @@ export class CreatePostLikeInput {
   @IsInt()
   post_id: number
 
-  @Field(() => Int)
+  @Field(() => Int, {nullable: true})
   @IsInt()
+  @IsOptional()
   profile_id: number
 }
