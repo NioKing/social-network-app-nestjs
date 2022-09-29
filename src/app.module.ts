@@ -21,19 +21,14 @@ import { AuthModule } from './auth/auth.module';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '13891666',
-      database: 'postgres',
       entities: ["dist/**/entities/*.entity{.ts,.js}"],
       synchronize: true,
       autoLoadEntities: true,
-      // ssl: {
-      //   requestCert: true,
-      //   rejectUnauthorized: false
-      // },
-      // url: 'postgres://movie_db_user:4cbcwsNdoW45ZwT4LZc2zXFzRLEgfmJI@dpg-ccbjd69a6gdmn7sguk30-a.frankfurt-postgres.render.com/movie_db'
+      ssl: {
+        requestCert: true,
+        rejectUnauthorized: false
+      },
+      url: process.env.DATABASE_URL
       
     }),
     UserModule,
