@@ -3,6 +3,7 @@ import { UserPost } from '../../user-post/entities/user-post.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { PostComment } from '../../post-comment/entities/post-comment.entity';
 import { PostLike } from '../../post-like/entities/post-like.entity';
+import { Friendship } from '../../friendship/entities/friendship.entity';
 
 @Entity('user')
 @ObjectType()
@@ -31,12 +32,15 @@ export class User {
   @Field(() => String)
   date_of_birth: Date
 
-  @Field(() => [UserPost], {nullable: true})
-  posts: UserPost[]
+  // @Field(() => [UserPost], {nullable: true})
+  // posts: UserPost[]
 
-  @Field(() => [PostComment], {nullable: true})
-  user_comments: PostComment[]
+  // @Field(() => [PostComment], {nullable: true})
+  // user_comments: PostComment[]
 
-  @Field(() => [PostLike], {nullable: true})
-  user_likes: PostLike[]
+  // @Field(() => [PostLike], {nullable: true})
+  // user_likes: PostLike[]
+
+  // @Field(() => [Friendship], {nullable: true})
+  // user_friends: Friendship[]
 }
