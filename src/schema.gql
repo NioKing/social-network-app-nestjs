@@ -20,22 +20,22 @@ type UserPost {
   likes: [PostLike!]!
 }
 
-type PostLike {
-  id: Int!
-  post_id: Int!
-  profile_id: Int!
-  created_time: String!
-}
-
 type User {
   id: Int!
   email: String!
   country: String!
   date_of_birth: String!
-  posts: [UserPost!]
-  user_comments: [PostComment!]
-  user_likes: [PostLike!]
+  posts: [UserPost!]!
+  user_comments: [PostComment!]!
+  user_likes: [PostLike!]!
   friends: [Friendship!]!
+}
+
+type PostLike {
+  id: Int!
+  post_id: Int!
+  profile_id: Int!
+  created_time: String!
 }
 
 type Friendship {

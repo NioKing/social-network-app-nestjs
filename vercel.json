@@ -1,15 +1,16 @@
 {
     "version": 2,
+    "name": "social-network-app",
     "builds": [
         {
-            "src": "./main.js",
+            "src": "dist/main.js",
             "use": "@vercel/node"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "/"
+            "dest": "dist/main.js"
         }
     ]
 }
