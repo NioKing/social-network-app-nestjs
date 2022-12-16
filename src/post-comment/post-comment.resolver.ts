@@ -21,9 +21,16 @@ export class PostCommentResolver {
     });
   }
 
-  @Query(() => [PostComment], { name: 'comments' })
+  @Query(() => [PostComment], { name: 'allComments' })
+  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.postCommentService.findAll();
+  }
+
+  @Query(() => [PostComment], { name: 'comments' })
+  @UseGuards(JwtAuthGuard)
+  findCommentsByUser(@currentUser() user: any) {
+    return this.postCommentService.findCommentsByUser(user.userId);
   }
 
   @Query(() => PostComment, { name: 'postComment' })

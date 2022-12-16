@@ -10,6 +10,7 @@ import { PostCommentModule } from './post-comment/post-comment.module';
 import { PostLikeModule } from './post-like/post-like.module';
 import { FriendshipModule } from './friendship/friendship.module';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -32,6 +33,10 @@ import { AuthModule } from './auth/auth.module';
       
     }),
     UserModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '../env'
+    }),
     UserPostModule,
     PostCommentModule,
     PostLikeModule,

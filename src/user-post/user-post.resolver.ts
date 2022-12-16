@@ -5,13 +5,14 @@ import { CreateUserPostInput } from './dto/create-user-post.input';
 import { UpdateUserPostInput } from './dto/update-user-post.input';
 import { PostComment } from '../post-comment/entities/post-comment.entity';
 import { PostLike } from '../post-like/entities/post-like.entity';
-import { UseGuards } from '@nestjs/common';
+import { BadRequestException, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { currentUser } from '../auth/current-user.decorator';
+import { User } from '../user/entities/user.entity';
 
 @Resolver(() => UserPost)
 export class UserPostResolver {
-  constructor(private readonly userPostService: UserPostService) {}
+  constructor(private readonly userPostService: UserPostService) { }
 
   @Mutation(() => UserPost)
   @UseGuards(JwtAuthGuard)
@@ -23,9 +24,16 @@ export class UserPostResolver {
     });
   }
 
-  @Query(() => [UserPost], { name: 'posts' })
+  @Query(() => [UserPost], { name: 'allPosts' })
+  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.userPostService.findAll();
+  }
+
+  @Query(() => [UserPost], { name: 'posts' })
+  @UseGuards(JwtAuthGuard)
+  findPostsByUser(@currentUser() user: any) {
+    return this.userPostService.findPostsByUser(user.userId);
   }
 
   @Query(() => UserPost, { name: 'userPost' })
