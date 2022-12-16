@@ -53,8 +53,10 @@ type Query {
   users: [User!]!
   user: User!
   userByEmail(email: String!): User!
+  allPosts: [UserPost!]!
   posts: [UserPost!]!
   userPost(id: Int!): UserPost!
+  allComments: [PostComment!]!
   comments: [PostComment!]!
   postComment(id: Int!): PostComment!
   likes: [PostLike!]!

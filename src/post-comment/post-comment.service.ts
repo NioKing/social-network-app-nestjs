@@ -21,6 +21,10 @@ export class PostCommentService {
     return this.postCommentRepo.find()
   }
 
+  async findCommentsByUser(id: number): Promise<PostComment[]> {
+    return this.postCommentRepo.find({where: {profile_id: id}})
+  }
+
   async findOne(id: number): Promise<PostComment> {
     return this.postCommentRepo.findOneOrFail({where: {id: id}})
   }

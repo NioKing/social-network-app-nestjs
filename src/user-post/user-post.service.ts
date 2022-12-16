@@ -26,6 +26,10 @@ export class UserPostService {
     return this.userPostRepo.find()
   }
 
+  async findPostsByUser(id: number): Promise<UserPost[]> {
+    return this.userPostRepo.find({where: {profile_id: id}})
+  }
+
   async findOne(id: number): Promise<UserPost> {
     return this.userPostRepo.findOneOrFail({where: {id: id}})
   }
